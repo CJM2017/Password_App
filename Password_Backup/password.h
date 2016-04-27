@@ -24,9 +24,11 @@ public:
     void rollTwo(void);
     void coinToss(void);
     void buildPassword(void);
+    void buildNumPassword(void);
     void calcStrength(void);
     void storePassword(string,string);
     void checkUser(string,string);
+
 public:                                         // Originally private
     vector<string> table;
     QString password;

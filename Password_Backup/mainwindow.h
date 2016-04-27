@@ -19,6 +19,8 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 public slots:
     void receive_back_button1(bool&);
 

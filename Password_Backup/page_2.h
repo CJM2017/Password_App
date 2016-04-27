@@ -18,6 +18,10 @@ public:
 
 private slots:
     void on_pushButton_clear_pws_clicked();
+    void on_pushButton_last_back_clicked();
+
+signals:
+    void send_button_status2(bool&);
 
 private:
     Ui::Page_2 *ui;

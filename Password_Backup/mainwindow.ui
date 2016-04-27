@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
-    <height>553</height>
+    <width>500</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <string notr="true">background-color: rgba(75, 138, 255, 204);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -118,22 +118,29 @@
      <string notr="true">border-image: url(:/plainicon.com-47219-512px-f4b.png);</string>
     </property>
    </widget>
-   <zorder>pushButton</zorder>
-   <zorder>lineEdit_Username</zorder>
-   <zorder>lineEdit_Password</zorder>
-   <zorder>label_2</zorder>
-   <zorder>label_3</zorder>
-   <zorder></zorder>
-   <zorder></zorder>
-   <zorder>graphicsView</zorder>
-   <zorder>graphicsView_2</zorder>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>510</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/160px-Infobox_info_icon_svg.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>521</width>
+     <width>500</width>
      <height>22</height>
     </rect>
    </property>

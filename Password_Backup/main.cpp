@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QDesktopWidget>
+#include <QScreen>
 
 int main(int argc, char *argv[])
 {

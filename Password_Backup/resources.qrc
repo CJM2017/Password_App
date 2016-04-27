@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>LOCK.jpg</file>
+        <file>bigstock-Internet-Security-37391854.jpg</file>
+        <file>password1.png</file>
+        <file>PCI_lg.jpg</file>
+        <file>password-policy.jpg</file>
+        <file>plainicon.com-47219-512px-f4b.png</file>
+        <file>back_button.png</file>
+    </qresource>
+</RCC>

@@ -86,12 +86,27 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-background-color: rgb(157, 157, 157);
+    <string notr="true">background-color: rgb(12, 12, 12);
 color: rgb(255, 26, 23);</string>
    </property>
    <property name="text">
     <string>Clear Passwords</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_close_p3">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>0</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Close.png);</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

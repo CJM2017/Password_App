@@ -17,11 +17,12 @@ public:
     ~Page_2();
 
 private slots:
-    void on_pushButton_clear_pws_clicked();
-    void on_pushButton_last_back_clicked();
+    void on_pushButton_clear_pws_clicked();                             // Deletes the password file
+    void on_pushButton_last_back_clicked();                             // Back button to take us back to the password generation page
+    void on_pushButton_close_p3_clicked();                              // Allows user to exit the program
 
 signals:
-    void send_button_status2(bool&);
+    void send_button_status2(bool&);                                    // Used to signal to the previous page that we want to go back
 
 private:
     Ui::Page_2 *ui;

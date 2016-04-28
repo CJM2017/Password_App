@@ -7,12 +7,12 @@
 #include <QDesktopWidget>
 #include <QRect>
 
-Page_1::Page_1(QWidget *parent) :
+Page_1::Page_1(QWidget *parent) :                                                       // Page 1 constructor
     QDialog(parent),
     ui(new Ui::Page_1)
 {
     ui->setupUi(this);
-    const QRect screen = QApplication::desktop()->screenGeometry();
+    const QRect screen = QApplication::desktop()->screenGeometry();                     // Centers the dialog window
     this->move(screen.center()- this->rect().center());
 }
 
@@ -23,37 +23,40 @@ Page_1::~Page_1()
 
 void Page_1::on_pushButton_Generate_clicked()
 {
-    if(numbers && !letters && !characters)
+    if(numbers && !letters && !characters)                                              // Generate password when only numbers selected
     {
-        myPassword.buildNumPassword();
-        result = myPassword.password;
-        ui->lineEdit_display_password->setText(result);
+        myPassword.buildNumPassword();                                                  // Password class method to build the password with class methods
+        ui->lineEdit_display_password->setText(myPassword.password);
         ui->lineEdit_display_password->setAlignment(Qt::AlignHCenter);
         accountName = ui->lineEdit_account_name->text();
         username = ui->lineEdit_username->text();
-        myPassword.password = "";
+        myPassword.password = "";                                                       // Resets the password string
     }
     else if(!(letters && !numbers && characters)
                 && !(!letters && numbers && characters)
                 && !(!letters && !numbers && characters)
-                && !(!letters && !numbers && !characters))                                      // This is used to prevent generation when nothing is selcted
+                && !(!letters && !numbers && !characters))                              // This is used to prevent generation when nothing is selcted
     {
     myPassword.buildPassword();
-    result = myPassword.password;
-    ui->lineEdit_display_password->setText(result);
+    ui->lineEdit_display_password->setText(myPassword.password);
     ui->lineEdit_display_password->setAlignment(Qt::AlignHCenter);
     accountName = ui->lineEdit_account_name->text();
     username = ui->lineEdit_username->text();
     myPassword.password = "";
-/*    myPassword.letters = false;
-    myPassword.numbers = false;*/                                // RESET the parameters
-    myPassword.table.clear();
-    cout << "generated clicked"<< endl;
+    myPassword.table.clear();                                                           // Resets the password table for generation
     }
     else
     {
-        QMessageBox::warning(this,"Error","Invalid Password Type");
+        QMessageBox msgBox;
+        msgBox.setStyleSheet("QMessageBox { background-color: rgb(255,255,255) }");
+        msgBox.setText("Error: Invalid Password Type");
+        msgBox.setIcon(QMessageBox::Warning);
+        hide();
+        msgBox.exec();
+        show();
     }
+    myPassword.calcStrength();                                                          // Calculates the strength of the password as a password class method
+    ui->progressBar->setValue(myPassword.strength);
 }
 
 void Page_1::on_horizontalSlider_valueChanged(int value)
@@ -61,8 +64,7 @@ void Page_1::on_horizontalSlider_valueChanged(int value)
     myPassword.passwordLength = value;
 }
 
-
-void Page_1::on_checkBox_Letters_stateChanged(int arg1)
+void Page_1::on_checkBox_Letters_stateChanged(int arg1)                                 // For all of these we set boolean variables in this page class and the password class to interpret users parameter selection
 {
     if(arg1 > 0)
     {
@@ -106,34 +108,51 @@ void Page_1::on_checkBox_chars_stateChanged(int arg1)
 
 }
 
-void Page_1::on_pushButton_Logout_clicked()
+void Page_1::on_pushButton_Logout_clicked()                                                 // Logout back button takes user to the login screen
 {
     bool goBack = true;
     emit send_back_signal1(goBack);
     this->deleteLater();
 }
 
-void Page_1::on_pushButton_save_password_clicked()
+void Page_1::on_pushButton_save_password_clicked()                                          // Save password push button methods
 {
-    cout << "pushed button" << endl;
     QString account = ui->lineEdit_account_name_2->text();
     QString user = ui->lineEdit_username->text();
     QString passcode = ui->lineEdit_display_password->text();
     QString filename = "passwords.txt";
     QFile file(filename);
+if(account != ""  && user !="" && passcode !="")
+ {
    if(!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
    {
-       QMessageBox::warning(this,"error","File not opened");
+       QMessageBox msgBox;
+       msgBox.setStyleSheet("QMessageBox { background-color: rgb(255,255,255) }");
+       msgBox.setText("Error: File not opened");
+       msgBox.setIcon(QMessageBox::Warning);
+       hide();
+       msgBox.exec();
+       show();
    }
-    QTextStream out(&file);
-    if(account != ""  && user !="" && passcode !="")
-    {
-       QMessageBox::information(this,"Message","Password Saved");
+       QTextStream out(&file);
+       QMessageBox msgBox;
+       msgBox.setStyleSheet("QMessageBox { background-color: rgb(255,255,255) }");
+       msgBox.setText("Password Saved");
+       msgBox.setIcon(QMessageBox::Information);
+       hide();
+       msgBox.exec();
+       show();
        out << account << "," << user << "," << passcode << endl;
     }
     else
     {
-        QMessageBox::warning(this,"Error","Empty Field");
+        QMessageBox msgBox;
+        msgBox.setStyleSheet("QMessageBox { background-color: rgb(255,255,255) }");
+        msgBox.setText("Error: Empty Field");
+        msgBox.setIcon(QMessageBox::Warning);
+        hide();
+        msgBox.exec();
+        show();
     }
     file.close();
 }
@@ -146,7 +165,7 @@ void Page_1::on_pushButton_view_passwords_clicked()
    hide();
 }
 
-void Page_1::receive_button_status2(bool &status)
+void Page_1::receive_button_status2(bool &status)                                               // This receives the back button request from Page_2
 {
     if(status)
     {
@@ -156,3 +175,7 @@ void Page_1::receive_button_status2(bool &status)
     }
 }
 
+void Page_1::on_pushButton_close_P1_clicked()
+{
+    qApp->quit();
+}

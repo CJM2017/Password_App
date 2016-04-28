@@ -1,33 +1,20 @@
-//===============================================================
-// Name     : password_one.cpp
-// Author   : Connor McCann
-// Email    : cjmccann@bu.edu
-// Date     : 12 Apr 2016
-//===============================================================
-
 #include "password.h"
 #include <iostream>
 #include <vector>
 #include <string>
 #include <math.h>
-#include <map>
-#include <string>
 using namespace std;
 
-//===============================================================
-//                        Class Constructor
-//===============================================================
-
-password_one::password_one()                                    // Main Constructor
+password_one::password_one()                                                        // Main Constructor
 {
-                                                 // Calulates the strength of the PW
+
 }
 
 //===============================================================
 //                        Class Methods
 //===============================================================
 
-void password_one::rollOne(void)                                    // Simulates roll of the first die
+void password_one::rollOne(void)                                                    // Simulates roll of the first die
 {
     if(letters && !numbers)
     {
@@ -43,7 +30,7 @@ void password_one::rollOne(void)                                    // Simulates
     }
 }
 
-void password_one::rollTwo(void)                                    // Simulates the second roll
+void password_one::rollTwo(void)                                                    // Simulates the second roll
 {
     if(letters && !numbers)
     {
@@ -59,7 +46,7 @@ void password_one::rollTwo(void)                                    // Simulates
     }
 }
 
-void password_one::coinToss(void)                                   // Simulates a 1/2 coin toss
+void password_one::coinToss(void)                                                   // Simulates a 1/2 coin toss
 {
     coin = rand() % 2 ;
 }
@@ -69,26 +56,24 @@ void password_one::buildNumPassword(void)
     for(int i = 0; i < passwordLength; i++)
     {
         int ranNum = rand() % 10;
-        cout << ranNum << endl;
+//        cout << ranNum << endl;
         char toAdd = '0' + ranNum;
-        cout << toAdd << endl;
+//        cout << toAdd << endl;
         password += toAdd;
     }
 }
 
-void password_one::buildPassword(void)                              // Function to build the password form the table using the above 3 parameters
+void password_one::buildPassword(void)                                               // Function to build the password form the table using the above 3 parameters
 {
-    //passwordLength = 10;
-    // Length of the PW
     if(letters && numbers && characters)
     {
-            string aLine;                                                   // Buffer to build each loop
-            int value = 96;                                                 // Use 32 for more characters
+            string aLine;                                                            // Buffer to build each loop
+            int value = 96;                                                          // Use 32 for more characters
             bool flag = false;
-            string myChar;                                                  // Character element to add to the buffer
+            string myChar;                                                          // Character element to add to the buffer
             for(int i = 0; i < 9;i++)
             {
-                for(int j = 0; j < 6; j++)                                  // Builds vector instead of direct input
+                for(int j = 0; j < 6; j++)                                          // Builds vector instead of direct input
                 {
                     if(flag)
                     {
@@ -110,15 +95,10 @@ void password_one::buildPassword(void)                              // Function 
                 table.push_back(aLine);                                     // Builds vector of strings = 2D array
                 aLine = "";
             }
-/*            for(int i = 0; i < table.size(); i++)                           // Prints the table we just built
-            {
-                cout << table[i] << endl;
-            }
-            cout << endl; */                                               // Build PW in constructor
+                                                                              // Build PW in constructor
     }
     else if(letters && !numbers && !characters)
     {
-        cout << "made it inside" << endl;
         string aLine;                                                   // Buffer to build each loop
         int value = 96;                                                 // Use 32 for more characters
         bool flag = false;
@@ -129,7 +109,6 @@ void password_one::buildPassword(void)                              // Function 
             {
                 if(flag)
                 {
-                    //value = -1;
                     break;
                 }
                 value++;
@@ -174,10 +153,6 @@ void password_one::buildPassword(void)                              // Function 
         table.push_back(aLine);                                     // Builds vector of strings = 2D array
         aLine = "";
         }
-//    for(int i = 0; i < table.size(); i++)                           // Prints the table we just built
-//    {
-//        cout << table[i] << endl;
-//    }
    }
     char element;
     for(int i = 0; i < passwordLength; i++)
@@ -186,8 +161,8 @@ void password_one::buildPassword(void)                              // Function 
         rollTwo();                                                  // Use the above functions to gnerate the PW
         coinToss();
         element = table[dieOne][dieTwo];
-        cout << element << endl;
-        cout << dieOne << "     " << dieTwo << endl;
+//        cout << element << endl;
+//        cout << dieOne << "     " << dieTwo << endl;
         if(coin)
         {
             element = toupper(element);
@@ -200,19 +175,24 @@ void password_one::buildPassword(void)                              // Function 
     }
     for(int i = 0; i < table.size(); i++)                           // Prints the table we just built
     {
-        cout << table[i] << endl;
+//        cout << table[i] << endl;
     }
-/*    letters = false;
-    numbers = false*/;                                // RESET the parameters
     table.clear();
-    //cout << table[table.size()] << endl;
 }
 
 
-void password_one::calcStrength(void)                               // Uses natural log base 3 to calc the strength
+void password_one::calcStrength(void)                               // Uses natural log base 2 to calc the strength
 {
     int N;
-    if(numbers)
+    if(numbers && letters && characters)
+    {
+        N = 54;
+    }
+    else if(numbers && letters)
+    {
+        N = 35;
+    }
+    else if(numbers)
     {
         N = 9;
     }
@@ -220,27 +200,14 @@ void password_one::calcStrength(void)                               // Uses natu
     {
         N = 26;
     }
-    else if(letters && numbers)
-    {
-        N = 35;
-    }
-    else if(letters && numbers && characters)
-    {
-        N = 54;
-    }
     else
     {
         N = 0;
     }
     strength = passwordLength * log2(N);
-    //cout << "The strength is:   " << strength << "   bits" << endl;
+//    cout<< N <<"|" << strength<< endl;
 }
 
-
-void password_one::storePassword(string theName, string thePassword)    // Stores the PW for each user in a MAP
-{
-    users[theName] = thePassword;
-}
 
 
 
